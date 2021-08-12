@@ -35,7 +35,7 @@ function Configuration {
 	sleep 3
 	printf "\n\n${WHITE}FILES CREATED SUCCESSFULLY"
 	sleep 2		
-	chmod +x update.sh &> /dev/null | printf "${WHITE}\n\nCONFIGURING UPDATE SETTING"
+	chmod +x Interceptor.sh &> /dev/null | printf "${WHITE}\n\nGIVING EXECUTE PERMISSION TO INTERCEPTOR"
 	cd ../
 	echo "Path = `pwd`">>Interceptor/Configuration/Configuration.ini
 }
