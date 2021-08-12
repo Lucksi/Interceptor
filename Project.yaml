@@ -1,0 +1,11 @@
+#YAML EXPLANATION FILE
+
+Name: Interceptor
+Languages: Shell-Script/Php
+Author: Lucksi
+Download: git clone https://github.com/Lucksi/Interceptor
+Installation: sudo ./Installer.sh
+Execution: sudo ./Interceptor.sh
+Platforms: Linux/MacOS
+Version: 1.0.1
+License: GNU General Public License v3.0

@@ -1,0 +1,6 @@
+# :heavy_check_mark: VERSION: 1.0.1
+
+## IMPLEMENTS:
+- **IP-GRABBER**
+- **CUSTOM-REDIRECT_URL**
+- **IP-GEOLOCATION**
