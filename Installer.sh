@@ -32,10 +32,13 @@ function Configuration {
 	echo "Password = $passw">>Configuration.ini
 	rm UNTILED.txt &> /dev/null
 	cd ../
+	cd Database
+	rm UNTILED.txt
+	cd ../
 	sleep 3
 	printf "\n\n${WHITE}FILES CREATED SUCCESSFULLY"
 	sleep 2		
-	chmod +x Interceptor.sh &> /dev/null | printf "${WHITE}\n\nGIVING EXECUTE PERMISSION TO INTERCEPTOR"
+	chmod +x update.sh &> /dev/null | printf "${WHITE}\n\nCONFIGURING UPDATE SETTING"
 	cd ../
 	echo "Path = `pwd`">>Interceptor/Configuration/Configuration.ini
 }

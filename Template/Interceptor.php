@@ -2,7 +2,7 @@
 $get_username = fopen("../Temp/User.txt","r");
 $reader = fread($get_username,filesize("../Temp/User.txt"));
 fclose($get_username);
-$local ="../Creds/{$reader}.txt";
+$local ="../Database/{$reader}.txt";
 $browser = $_SERVER["HTTP_USER_AGENT"];
 
     function get_ip($ipaddress,$ip) {
