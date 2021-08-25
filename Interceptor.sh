@@ -1,4 +1,8 @@
 #!/bin/bash
+# AUTHOR: Lucksi
+# Copyright © 2021 Lucksi
+# License: GNU General Public License v3.0
+
 YELLOW=$(tput setaf 11)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
