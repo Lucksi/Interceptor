@@ -1,4 +1,8 @@
 <?php
+# AUTHOR: Luca Garofalo (Lucksi)
+# Copyright (C) 2021-2022 Lucksi
+# License: GNU General Public License v3.0
+
 $get_username = fopen("../Temp/User.txt","r");
 $reader = fread($get_username,filesize("../Temp/User.txt"));
 fclose($get_username);
