@@ -19,7 +19,7 @@ function Banner {
 }
 
 function Eula {
-    if [ -f "Configuration/Agreement.txt"];
+    if [ -f "Configuration/Agreement.txt" ];
         then
         Menu
     fi
@@ -234,7 +234,7 @@ function Menu {
     Version=$(<"Version/Version.txt")
     printf "${WHITE}\n\nA SIMPLE IP-TRACKER/GRABBER TOOL\t${BANNER}CODED BY LUCKSI${RESET}\n\n"
     printf "${WHITE}[+]${GREEN}VERSION:$Version\n"
-    printf "${YELLOW}Instagram:lucks_022\nEMAIL:lukege287@gmail.com\nGIT-HUB:Lucksi\nWebsite:https://sosuke.altervista.org"
+    printf "${YELLOW}Instagram:lucks_022\nEMAIL:lukege287@gmail.com\nGIT-HUB:Lucksi\nTwitter:@Lucksi_22\nLinkedin:https://www.linkedin.com/in/lucksi"
     printf "${GREEN}\n\n[*INSERT AN OPTION*]\n"
     printf "${WHITE}(1)IP-GRABBER\n(2)DATABASE\n(3)UPDATE\n(4)EXIT\n\n"
     read -p "$YELLOW[INTERCEPTOR]$WHITE-->" option
