@@ -3,13 +3,14 @@
 ## INTRCEPTOR IS A SIMPLE IP-GRABBER, IT ALSO PROVIDE YOU SOME INFORMATION ABOUT THE IP. WITH THE HELP OF A LINK WITH A CUSTOM REDIRECT  
 
 <br>
+<p align = "center">
 <img src = "https://img.shields.io/github/stars/Lucksi/Interceptor">
 <img src = "https://img.shields.io/github/forks/Lucksi/Interceptor">
 <img src = "https://img.shields.io/github/license/Lucksi/Interceptor">
 <img src = "https://img.shields.io/github/repo-size/Lucksi/Interceptor">
 <img src= "https://img.shields.io/github/languages/count/Lucksi/Interceptor">
 <img src = "https://visitor-badge.laobi.icu/badge?page_id=Lucksi.Interceptor">
-
+</p>
 <br>
 
 # DISCLAIMER
