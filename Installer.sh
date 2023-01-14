@@ -1,6 +1,7 @@
 #!/bin/bash
+# ORIGINAL CREATOR: Luca Garofalo (Lucksi)
 # AUTHOR: Luca Garofalo (Lucksi)
-# Copyright (C) 2021-2022 Lucksi
+# Copyright (C) 2021-2023 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
 ARCHITECTURE="$(arch)"
@@ -25,6 +26,18 @@ function Ngrok {
 	mv ngrok Tunnel
 	rm ngrok.zip
 	printf "\n\n${WHITE}NGROK INSTALLED SUCCESSFULLY"
+	printf "\n\n${WHITE}INSERT YOUR NGROK AUTHTOKEN(REQUIRED)\n\n"
+	read -p"$YELLOW[INTERCEPTOR]$WHITE-->" token
+	while [ "$token" = "" ];
+		do
+        printf "\n\n${WHITE}INSERT YOUR NGROK AUTHTOKEN(REQUIRED)\n\n"
+        read -p"$YELLOW[INTERCEPTOR]$WHITE-->" token
+	done
+	printf "\n\n${WHITE}CONFIGURING NGROK AUTHTOKEN..."
+	ngrok authtoken $token
+	sleep 3
+	printf "\n\n${WHITE}NGROK CONFIGURED SUCCESSFULLY"
+
 }
 
 function Configuration {
@@ -48,10 +61,12 @@ function Configuration {
 }
 
 function installer {
-    apt-get install php &> /dev/null | printf "${WHITE}\n\nINSTALLING PHP"
-    apt-get install curl &> /dev/null | printf "${WHITE}\n\nINSTALLING CURL"
-    apt-get install wget &> /dev/null | printf "${WHITE}\n\nINSTALLING WGET"
-    apt-get install wget &> /dev/null | printf "${WHITE}\n\nINSTALLING GREP"
+    apt-get install php -y &> /dev/null | printf "${WHITE}\n\nINSTALLING PHP"
+    apt-get install curl -y &> /dev/null | printf "${WHITE}\n\nINSTALLING CURL"
+    apt-get install wget -y &> /dev/null | printf "${WHITE}\n\nINSTALLING WGET"
+    apt-get install grep -y &> /dev/null | printf "${WHITE}\n\nINSTALLING GREP"
+	apt-get install snapd  -y &> /dev/null | printf "${WHITE}\n\nINSTALLING SNAPD"
+	snap install ngrok &> /dev/null | printf "${WHITE}\n\nINSTALLING REQUIREMENTS FOR NGROK"
 	printf "${WHITE}\n\nCHECKING YOUR OS ARCHITECTURE..."
 	sleep 2
 	Ngrok

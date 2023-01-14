@@ -2,6 +2,7 @@
 
 Name: Interceptor
 Languages: Shell-Script/Php
+Original Creator: Luca Garofalo (Lucksi)
 Author: Lucksi
 Download: git clone https://github.com/Lucksi/Interceptor
 Installation: sudo ./Installer.sh

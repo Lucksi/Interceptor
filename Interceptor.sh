@@ -1,6 +1,7 @@
 #!/bin/bash
+# ORIGINAL CREATOR: Luca Garofalo (Lucksi)
 # AUTHOR: Luca Garofalo (Lucksi)
-# Copyright (C) 2021-2022 Lucksi
+# Copyright (C) 2021-2023 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
 YELLOW=$(tput setaf 11)
@@ -15,6 +16,28 @@ function Banner {
     clear
     banner=$(<"Banner/Banner1.txt") 
     printf "${YELLOW}$banner"
+}
+
+function Eula {
+    if [ -f "Configuration/Agreement.txt"];
+        then
+        Menu
+    fi
+    Banner
+    printf "\n\n${WHITE}\nTHIS TOOL IS FOR EDUCATIONAL AND TESTING PURPOSES ONLY I DO NOT ASSUME ANY KIND OF RESPONSABILITY FOR ANY INTENTIONAL OR UNINTENTIONAL DAMAGE YOU WILL CAUSE WITH THIS TOOL, ATTACKS WITHOUT SOMEONE CONSENT IS CONSIDERATED ILLEGAL BY THE LAW. BY USING THIS TOOL YOU ACCEPT THIS CONDITION.USE IT WITH GOOD SENSE\n\n${GREEN}(Y)${WHITE}ACCEPT${RED}(N)${WHITE}DECLINE\n\n"
+    read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Agree
+        while [[ "$Agree" == "" ]]
+            do
+            printf "\n\n"
+            read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Agree
+        done
+        if [[ "$Agree" == "Y" || "$Agree" == "y" ]];
+            then
+            echo "AGREEMENT ACCEPTED">"Configuration/Agreement.txt"
+            Menu
+        fi
+        printf "${RED}\n\n[!]"${WHITE}"YOU MUST ACCEPT THIS TERM IN ORDER TO USE THIS TOOL\n\n"
+	    exit 1
 }
 
 function Check {
@@ -239,4 +262,4 @@ if [ $(id -u) -ne 0 ];
 	printf "${RED}\n\n[!]"${WHITE}"THIS SCRIPT MUST BE RUN AS ROOT TRY WITH SUDO :)\n\n"
 	exit 1
 fi
-Menu
+Eula
