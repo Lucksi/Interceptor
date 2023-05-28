@@ -79,7 +79,7 @@ $browser = $_SERVER["HTTP_USER_AGENT"];
                 <script>
                     var map = L.map( 'map' ).setView([{$query["lat"]},{$query["lon"]}], 14);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ attribution: '&copy; <a href= https://www.openstreetmap.org/copyright >OpenStreetMap</a> contributors'}).addTo(map);
-                    L.marker([45.4641943,9.1896346]).addTo(map).bindPopup('${reader} ip is approximatley based in this Area.').openPopup();
+                    L.marker([{$query["lat"]},{$query["lon"]}]).addTo(map).bindPopup('${reader} ip is approximatley based in this Area.').openPopup();
                 </script>;       
             </body>
         </html>";
