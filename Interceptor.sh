@@ -215,6 +215,7 @@ function Grabber {
         fi
     done < "$file2"
     printf "${GREEN}\n[+]${WHITE}ADDING${YELLOW} $Victim${WHITE} IP ON THE DATABASE...\n"
+    printf "${GREEN}\n[+]${WHITE}IP MAP OF${YELLOW} $Victim${WHITE} SAVED ON FOLDER:${YELLOW}Database/${Victim}_Map.html\n"
     sleep 4
     printf "${GREEN}\n[+]${WHITE}DELETING OLD SERVER FILE...\n"
     sleep 3
