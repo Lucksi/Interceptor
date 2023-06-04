@@ -41,6 +41,7 @@ function Ngrok {
 }
 
 function Configuration {
+	Fold=${PWD##*/}
     cd Configuration
 	echo ";CHANGE THESE VALUE IF YOU WANT TO UPDATE YOUR SETTINGS FROM HERE">Configuration.ini
 	echo ";BUT DO NOT CHANGE THE PARAMETERS NAME">>Configuration.ini
@@ -57,7 +58,7 @@ function Configuration {
 	sleep 2		
 	chmod +x Interceptor.sh &> /dev/null | printf "${WHITE}\n\nCONFIGURING INTERCEPTOR"
 	cd ../
-	echo "Path = `pwd`">>Interceptor/Configuration/Configuration.ini
+	echo "Path = `pwd`">>$Fold/Configuration/Configuration.ini
 }
 
 function installer {
