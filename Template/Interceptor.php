@@ -4,11 +4,11 @@
 # Copyright (C) 2021-2023 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
-$get_username = fopen("../Temp/User.txt","r");
-$reader = fread($get_username,filesize("../Temp/User.txt"));
+$get_username = fopen("Temp/User.txt","r");
+$reader = fread($get_username,filesize("Temp/User.txt"));
 fclose($get_username);
-$local ="../Database/{$reader}.txt";
-$local2 = "../Database/{$reader}_Map.html";
+$local ="Database/{$reader}/{$reader}.txt";
+$local2 = "Database/{$reader}/Map.html";
 $browser = $_SERVER["HTTP_USER_AGENT"];
 
     function get_ip($ipaddress,$ip) {
@@ -63,8 +63,7 @@ $browser = $_SERVER["HTTP_USER_AGENT"];
             <html>
                 <head>
                 <title>Map for {$reader} IP</title>
-                <title>Map Post</title>
-                <link rel = 'stylesheet' href = '../Template/Css/Map.css'>
+                <link rel = 'stylesheet' href = '../../Css/Map.css'>
                 <link rel= stylesheet href= 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'  integrity= 'sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=='  crossorigin= '' />
                 <script src= 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js'  integrity= 'sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==' crossorigin= ''></script>
                 <meta charset = UTF-8 >

