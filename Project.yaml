@@ -1,7 +1,7 @@
 #YAML EXPLANATION FILE
 
 Name: Interceptor
-Languages: Shell-Script/Php
+Languages: Shell-Script,Php,Css,Javascript
 Original Creator: Luca Garofalo (Lucksi)
 Author: Lucksi
 Download: git clone https://github.com/Lucksi/Interceptor
