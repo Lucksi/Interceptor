@@ -1,6 +1,6 @@
 # INTERCEPTOR:
 
-## INTRCEPTOR IS A SIMPLE IP-GRABBER, IT ALSO PROVIDE YOU SOME INFORMATION ABOUT THE IP. WITH THE HELP OF A LINK WITH A CUSTOM REDIRECT  
+**Interceptor Is a simple Ip-Grabber tool, It also provide you some information reletad to your target ip thanks to a custom redirect link**  
 
 <br>
 <p align = "center">
@@ -14,7 +14,7 @@
 <br>
 
 # DISCLAIMER
-## THIS TOOL IS FOR EDUCATIONAL AND TESTING PURPOSES ONLY I DO NOT ASSUME ANY KIND OF RESPONSABILITY FOR ANY INTENTIONAL OR UNINTENTIONAL DAMAGE YOU WILL CAUSE WITH THIS TOOL, ATTACKS WITHOUT SOMEONE CONSENT IS CONSIDERATED ILLEGAL BY THE LAW. BY USING THIS TOOL YOU ACCEPT THIS CONDITION.USE IT WITH GOOD SENSE 
+**THIS TOOL IS FOR EDUCATIONAL AND TESTING PURPOSES ONLY I DO NOT ASSUME ANY KIND OF RESPONSABILITY FOR ANY INTENTIONAL OR UNINTENTIONAL DAMAGE YOU WILL CAUSE WITH THIS TOOL, ATTACKS WITHOUT SOMEONE CONSENT IS CONSIDERATED ILLEGAL BY THE LAW. BY USING THIS TOOL YOU ACCEPT THIS CONDITION.USE IT WITH GOOD SENSE**
 
 <br>
 
@@ -28,22 +28,37 @@
 git clone https://github.com/Lucksi/Interceptor
 cd Interceptor
 sudo chmod +x Installer.sh
-sudo ./Installer.sh
+sudo bash Installer.sh
 ```
 
 <br>
 
 # USAGE(LINUX):
 ```bash
-sudo ./Interceptor.sh
+sudo bash Interceptor.sh
 ```
 
 <br>
 
-# IF YOUR LINK DOESN'T SHOW UP TRY TO WRITE THIS COMMAND:
+# ATTENTION:
+**In case Your link doesnt show up Try to edit the Interceptor.sh file and replace:**
+```bash
+link=$(curl -s -N http://127.0.0.1:4040/api/tunnels|sed 's#"# #g'|sed 's#http#\nhttp#g'|sed 's#.io#.io\n#g'|grep https|head -n 1)
+```
+**With**
 ```bash
 link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
 ```
+
+<br>
+
+## FEATURES:
+
+| Name | Description |
+| ------------- | ------------- |
+| `Ip-GeoLocation`  | Geolocate target Ip Address |
+| `GPS-Geolocation`  | Geolocate target approximate GPS Geolocation|
+
 <br>
 
 ## <p align = center> STARGAZERS OVER TIME 
