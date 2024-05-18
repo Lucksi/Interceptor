@@ -1,7 +1,7 @@
 #!/bin/bash
 # ORIGINAL CREATOR: Luca Garofalo (Lucksi)
 # AUTHOR: Luca Garofalo (Lucksi)
-# Copyright (C) 2021-2023 Lucksi <lukege287@gmail.com>
+# Copyright (C) 2021-2024 Lucksi <lukege287@gmail.com>
 # License: GNU General Public License v3.0
 
 YELLOW=$(tput setaf 11)
@@ -225,7 +225,7 @@ function Grabber {
     printf "${GREEN}\n\n[+]${WHITE}RUNNING NGROK SERVER...\n"
     sleep 4
     printf "${GREEN}\n[+]${WHITE}GENERATING URL...\n"
-    Tunnel/./ngrok http $Port >/dev/null 2>&1 &
+    ngrok http $Port >/dev/null 2>&1 &
     sleep 9
     link=$(curl -s -N http://127.0.0.1:4040/api/tunnels|sed 's#"# #g'|sed 's#http#\nhttp#g'|sed 's#.io#.io\n#g'|grep https|head -n 1)
     #link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
@@ -319,7 +319,7 @@ if [ $(id -u) -ne 0 ];
 	then
 	clear
     Banner
-	printf "${RED}\n\n[!]"${WHITE}"THIS SCRIPT MUST BE RUN AS ROOT TRY WITH SUDO :)\n\n"
+	printf "${RED}\n\n[!]${WHITE}THIS SCRIPT MUST BE RUN AS ROOT TRY WITH SUDO :)\n\n"
 	exit 1
 fi
 Eula
